@@ -1,7 +1,7 @@
 package audiotoolbox
 
 // #cgo CFLAGS: -I/usr/local/include
-// #cgo LDFLAGS: -framework CoreAudio -framework AudioToolbox -framework AudioUnit -framework Foundation
+// #cgo LDFLAGS: -framework CoreAudio -framework AudioToolbox -framework Foundation
 //
 // #import <stdint.h>
 // int open_audio(char* name);

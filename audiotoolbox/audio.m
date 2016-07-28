@@ -1,7 +1,7 @@
 #import <Foundation/Foundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 
-int open_audio(char* name) {
+int audio_open(char* name) {
   CFStringRef urlStr = CFStringCreateWithCString(kCFAllocatorDefault, name, kCFStringEncodingUTF8);
   CFURLRef urlRef = CFURLCreateWithFileSystemPath(NULL, urlStr, kCFURLPOSIXPathStyle, false);
 
@@ -12,22 +12,32 @@ int open_audio(char* name) {
   CFRelease(urlRef);
 
   // TODO(jbd): Handle error.
-
-  AudioStreamBasicDescription inputFormat;
-  UInt32 size = sizeof(inputFormat);
-  err = ExtAudioFileGetProperty(file, kExtAudioFileProperty_FileDataFormat, &size, &inputFormat);
-
   return 0;
 }
 
-int seek_audio(int sampleIndex) {
+int audio_parseheader(ExtAudioFileRef file, uint* bitDepth, uint* numChannels, uint* sampleRate, uint* audioSize) {
+  AudioStreamBasicDescription iformat;
+  UInt32 size = sizeof(iformat);
+
+  OSStatus err;
+  err = ExtAudioFileGetProperty(file, kExtAudioFileProperty_FileDataFormat, &size, &iformat);
+  // handle the error
+
+  *numChannels = (int)iformat.mChannelsPerFrame;
+  *bitDepth = (int)iformat.mBytesPerFrame/iformat.mChannelsPerFrame;
+  *sampleRate = (int)(iformat.mSampleRate); // convert to float64?
+  // calculate the audioSize
   return 0;
 }
 
-int read_audio(int size, const uint8_t* dst) {
+int audio_seek(ExtAudioFileRef f, int sampleIndex) {
   return 0;
 }
 
-int close_audio(int fid) {
+int audio_read(ExtAudioFileRef f, int size, const uint8_t* dst) {
+  return 0;
+}
+
+int audio_close(ExtAudioFileRef f) {
   return 0;
 }
