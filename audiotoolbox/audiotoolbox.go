@@ -4,10 +4,13 @@ package audiotoolbox
 // #cgo LDFLAGS: -framework CoreAudio -framework AudioToolbox -framework Foundation
 //
 // #import <stdint.h>
-// int open_audio(char* name);
-// int seek_audio(int sampleIndex);
-// int read_audio(int size, const uint8_t* dst);
-// int close_audio(int fid);
+// #import <AudioToolbox/AudioToolbox.h>
+//
+// int audio_open(char* name, ExtAudioFileRef* file);
+// int audio_parseheader(ExtAudioFileRef file, uint* bitDepth, uint* numChannels, uint* sampleRate, uint* audioSize);
+// int audio_seek(ExtAudioFileRef f, int sampleIndex);
+// int audio_read(ExtAudioFileRef f, int size, const uint8_t* dst);
+// int audio_close(ExtAudioFileRef file);
 import "C"
 
 import (

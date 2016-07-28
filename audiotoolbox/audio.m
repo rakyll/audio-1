@@ -1,13 +1,12 @@
 #import <Foundation/Foundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 
-int audio_open(char* name) {
+int audio_open(char* name, ExtAudioFileRef* file) {
   CFStringRef urlStr = CFStringCreateWithCString(kCFAllocatorDefault, name, kCFStringEncodingUTF8);
   CFURLRef urlRef = CFURLCreateWithFileSystemPath(NULL, urlStr, kCFURLPOSIXPathStyle, false);
 
-  ExtAudioFileRef file;
   OSStatus err;
-  err = ExtAudioFileOpenURL(urlRef, &file);
+  err = ExtAudioFileOpenURL(urlRef, file);
 
   CFRelease(urlStr);
   CFRelease(urlRef);
@@ -46,6 +45,6 @@ int audio_read(ExtAudioFileRef f, int size, const uint8_t* dst) {
   return 0;
 }
 
-int audio_close(ExtAudioFileRef f) {
-  return 0;
+int audio_close(ExtAudioFileRef file) {
+  return ExtAudioFileDispose(file);
 }
