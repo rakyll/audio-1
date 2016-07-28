@@ -35,6 +35,7 @@ int audio_seek(ExtAudioFileRef file, int sampleIndex) {
   return 0;
 }
 
+// TODO(jbd): implement audio_readInt and audio_readFloat.
 int audio_read(ExtAudioFileRef file, int size, uint numChannels, const float* dst) {
   OSStatus err;
 
