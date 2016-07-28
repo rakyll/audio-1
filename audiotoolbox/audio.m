@@ -8,10 +8,15 @@ int audio_open(char* name) {
   ExtAudioFileRef file;
   OSStatus err;
   err = ExtAudioFileOpenURL(urlRef, &file);
+
   CFRelease(urlStr);
   CFRelease(urlRef);
 
-  // TODO(jbd): Handle error.
+  // TODO(jbd): provide more detailed error code if failed.
+  if (err != noErr) {
+    return -1;
+  }
+
   return 0;
 }
 
@@ -21,7 +26,10 @@ int audio_parseheader(ExtAudioFileRef file, uint* bitDepth, uint* numChannels, u
 
   OSStatus err;
   err = ExtAudioFileGetProperty(file, kExtAudioFileProperty_FileDataFormat, &size, &iformat);
-  // handle the error
+  // TODO(jbd): provide more detailed error code if failed.
+  if (err != noErr) {
+    return -1;
+  }
 
   *numChannels = (int)iformat.mChannelsPerFrame;
   *bitDepth = (int)iformat.mBytesPerFrame/iformat.mChannelsPerFrame;
