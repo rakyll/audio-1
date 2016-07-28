@@ -9,7 +9,7 @@ package audiotoolbox
 // int audio_open(char* name, ExtAudioFileRef* file);
 // int audio_parseheader(ExtAudioFileRef file, uint* bitDepth, uint* numChannels, uint* sampleRate, uint* audioSize);
 // int audio_seek(ExtAudioFileRef file, int sampleIndex);
-// int audio_read(ExtAudioFileRef file, int size, const uint8_t* dst);
+// int audio_read(ExtAudioFileRef file, int size, const float* dst);
 // int audio_close(ExtAudioFileRef file);
 import "C"
 

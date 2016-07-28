@@ -11,14 +11,10 @@ int audio_open(char* name, ExtAudioFileRef* file) {
   CFRelease(urlStr);
   CFRelease(urlRef);
 
-  if (err != noErr) {
-    return err;
-  }
-
-  return 0;
+  return err;
 }
 
-int audio_parseheader(ExtAudioFileRef file, uint* bitDepth, uint* numChannels, uint* sampleRate, uint* audioSize) {
+int audio_parseheader(ExtAudioFileRef file, uint32_t* bitDepth, uint32_t* numChannels, uint32_t* sampleRate, uint32_t* audioSize) {
   AudioStreamBasicDescription iformat;
   UInt32 size = sizeof(iformat);
 
@@ -39,7 +35,8 @@ int audio_seek(ExtAudioFileRef file, int sampleIndex) {
   return 0;
 }
 
-int audio_read(ExtAudioFileRef file, int size, const uint8_t* dst) {
+int audio_read(ExtAudioFileRef file, int size, const float* dst) {
+
   return 0;
 }
 
